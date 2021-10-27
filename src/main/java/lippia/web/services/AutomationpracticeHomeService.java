@@ -57,16 +57,32 @@ public class AutomationpracticeHomeService extends ActionManager {
 
     public static void verifySearchLowerToHigher() {
         waitVisibility(AutomationpracticeConstants.LIST_SEARCH_XPATH);
-        List<WebElement> dropdownAllSelectedOptions = getDropdownAllSelectedOptions(AutomationpracticeConstants.LIST_SEARCH_XPATH);
+        List<WebElement> listSearchOptions = ActionManager.getElements(AutomationpracticeConstants.LIST_SEARCH_XPATH);
 
-        for (int i = 0, dropdownAllSelectedOptionsSize = dropdownAllSelectedOptions.size(); i < dropdownAllSelectedOptionsSize; i++) {
-            WebElement elementList = dropdownAllSelectedOptions.get(i);
-            Double price = Double.parseDouble(elementList.getText().replace("$", ""));
+        for (int i = 0, listSearchOptionsSize = listSearchOptions.size(); i < listSearchOptionsSize; i++) {
+            Double price = Double.parseDouble(
+                    listSearchOptions
+                            .get(i)
+                            .getText()
+                            .replace("$", ""));
+            Double priceLess;
+            if(i==0){
+                priceLess = 0.0;
+            }else{
+                priceLess = Double.parseDouble(
+                        listSearchOptions
+                                .get(i-1)
+                                .getText()
+                                .replace("$", ""));;
+            }
+            Assert.assertTrue(validateSearchLowerToHigher(price, priceLess));
 
-            //primero es mas barato que el segundo
-
-            Assert.assertTrue();
         }
-
+    }
+    public static boolean validateSearchLowerToHigher(Double price, Double priceLess){
+        if( priceLess > price ){
+            return false;
+        }
+        return true;
     }
 }
