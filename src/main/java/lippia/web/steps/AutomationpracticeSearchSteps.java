@@ -45,7 +45,7 @@ public class AutomationpracticeSearchSteps extends PageSteps {
     }
     @Then("The client verify that they are ordered from smallest to largest")
     public void theClientVerifyThatTheyAreOrderedFromSmallestToLargest() {
-        AutomationpracticeHomeService.verifySearchLowerToHigther();
+        AutomationpracticeHomeService.verifySearchLowerToHigher();
     }
 
 
