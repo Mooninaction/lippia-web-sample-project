@@ -65,7 +65,7 @@ public class AutomationpracticeHomeService extends ActionManager {
                             .get(i)
                             .getText()
                             .replace("$", ""));
-            Double priceLess;
+            double priceLess;
             if(i==0){
                 priceLess = 0.0;
             }else{
@@ -73,16 +73,13 @@ public class AutomationpracticeHomeService extends ActionManager {
                         listSearchOptions
                                 .get(i-1)
                                 .getText()
-                                .replace("$", ""));;
+                                .replace("$", ""));
             }
             Assert.assertTrue(validateSearchLowerToHigher(price, priceLess));
 
         }
     }
     public static boolean validateSearchLowerToHigher(Double price, Double priceLess){
-        if( priceLess > price ){
-            return false;
-        }
-        return true;
+        return priceLess <= price;
     }
 }
