@@ -13,5 +13,6 @@ public class AutomationpracticeConstants {
     public static final String H1_SIGNIN_XPATH = "xpath://*[@id='center_column']/h1";
 
     public static final String SELECTOR_SEARCH_XPATH = "xpath://*[@id='uniform-selectProductSort']";
-    public static final String OPTION_SEARCH_XPATH = "xpath:////*[@id='selectProductSort']/option[7]";
+    public static final String OPTION_SEARCH_XPATH = "xpath://*[@id='selectProductSort']/option[2]";
+    public static final String LIST_SEARCH_XPATH = "xpath://*[@id='center_column']/ul/li/div/div[2]/div[1]/span";
 }

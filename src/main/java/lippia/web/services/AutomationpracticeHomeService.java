@@ -14,11 +14,13 @@ public class AutomationpracticeHomeService extends ActionManager {
     public static void navegarWeb(){
         navigateTo(PropertyManager.getProperty("web.base.url"));
     }
+
     public static void clickSearchButton() {
         click(AutomationpracticeConstants.BUTTON_SEARCH_XPATH);
     }
+
     public static void clickLoginButton(){
-        click(AutomationpracticeConstants.BUTTON_LOGIN_XPATH);
+        click(AutomationpracticeConstants.BUTTON_SIGNIN_XPATH);
     }
     public static void completeFieldSearch(String word){
         setInput(AutomationpracticeConstants.INPUT_SEARCH_XPATH, word);
@@ -31,7 +33,7 @@ public class AutomationpracticeHomeService extends ActionManager {
     }
     public static void LoginScreen(){
         navigateTo(PropertyManager.getProperty("web.base.url"));
-        click(AutomationpracticeConstants.BUTTON_SIGNIN_XPATH);
+        waitVisibility(AutomationpracticeConstants.BUTTON_LOGIN_XPATH).click();
     }
     public static void clickOptionDropdown(){
         click(AutomationpracticeConstants.SELECTOR_SEARCH_XPATH);
@@ -44,6 +46,6 @@ public class AutomationpracticeHomeService extends ActionManager {
         Assert.assertTrue(isVisible(AutomationpracticeConstants.H1_SIGNIN_XPATH));
     }
     public static void verifySearchLowerToHigther(){
-
+        //Verificar con un for AutomationpracticeConstants.LIST_SEARCH_XPATH
     }
 }
