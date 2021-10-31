@@ -33,7 +33,7 @@ public class AutomationpracticeSearchSteps extends PageSteps {
     }
     @And("^The client click in the option \"(.*)\" on the dropdown$")
     public void theClientClickInTheOptionOnTheDropdown(String option) {
-        AutomationpracticeHomeService.clickOptionDropdown();
+        AutomationpracticeHomeService.clickOptionDropdown(option);
     }
     @Then("The client verify that results are shown properly")
     public void theClientVerifyThatResultsAreShownProperly() {

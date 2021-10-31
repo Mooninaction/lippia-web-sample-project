@@ -18,65 +18,63 @@ public class AutomationpracticeHomeService extends ActionManager {
     }
 
     public static void clickSearchButton() {
-        click(AutomationpracticeConstants.BUTTON_SEARCH_XPATH);
+        click(AutomationpracticeConstants.BUTTON_SEARCH);
     }
 
     public static void clickLoginButton() {
-        click(AutomationpracticeConstants.BUTTON_SIGNIN_XPATH);
+        click(AutomationpracticeConstants.BUTTON_SIGNIN);
     }
 
     public static void completeFieldSearch(String word) {
-        setInput(AutomationpracticeConstants.INPUT_SEARCH_XPATH, word);
+        setInput(AutomationpracticeConstants.INPUT_SEARCH, word);
     }
 
     public static void completeFieldEmail(String email) {
-        setInput(AutomationpracticeConstants.INPUT_ADDRESS_XPATH, email);
+        setInput(AutomationpracticeConstants.INPUT_ADDRESS, email);
     }
 
     public static void completeFieldPassword(String password) {
-        setInput(AutomationpracticeConstants.INPUT_PASSWORD_XPATH, password);
+        setInput(AutomationpracticeConstants.INPUT_PASSWORD, password);
     }
 
     public static void LoginScreen() {
         navigateTo(PropertyManager.getProperty("web.base.url"));
-        waitVisibility(AutomationpracticeConstants.BUTTON_LOGIN_XPATH).click();
+        waitVisibility(AutomationpracticeConstants.BUTTON_LOGIN).click();
     }
 
-    public static void clickOptionDropdown() {
-        click(AutomationpracticeConstants.SELECTOR_SEARCH_XPATH);
-        click(AutomationpracticeConstants.OPTION_SEARCH_XPATH);
+    public static void clickOptionDropdown(String option) {
+        click(AutomationpracticeConstants.SELECTOR_SEARCH);
+        if(WebActionManager
+                .waitVisibility(AutomationpracticeConstants.OPTION_SEARCH)
+                .getText()
+                .contains(option)){
+            click(AutomationpracticeConstants.OPTION_SEARCH);
+        }else{
+            Assert.fail("The option " + option + " does not exist");
+        }
     }
 
     public static void verifySearch() {
-        Assert.assertTrue(isVisible(AutomationpracticeConstants.H1_SEARCH_XPATH));
+        Assert.assertTrue(isVisible(AutomationpracticeConstants.H1_SEARCH));
     }
 
     public static void verifySignInPage() {
-        Assert.assertTrue(isVisible(AutomationpracticeConstants.H1_SIGNIN_XPATH));
+        Assert.assertTrue(isVisible(AutomationpracticeConstants.H1_SIGNIN));
     }
 
     public static void verifySearchLowerToHigher() {
-        waitVisibility(AutomationpracticeConstants.LIST_SEARCH_XPATH);
-        List<WebElement> listSearchOptions = ActionManager.getElements(AutomationpracticeConstants.LIST_SEARCH_XPATH);
+        waitVisibility(AutomationpracticeConstants.LIST_SEARCH);
+        List<WebElement> listSearchOptions = ActionManager.getElements(AutomationpracticeConstants.LIST_SEARCH);
 
-        for (int i = 0, listSearchOptionsSize = listSearchOptions.size(); i < listSearchOptionsSize; i++) {
+        Double priceLess = 0.0;
+        for (WebElement priceList : listSearchOptions) {
             Double price = Double.parseDouble(
-                    listSearchOptions
-                            .get(i)
+                    priceList
                             .getText()
                             .replace("$", ""));
-            double priceLess;
-            if(i==0){
-                priceLess = 0.0;
-            }else{
-                priceLess = Double.parseDouble(
-                        listSearchOptions
-                                .get(i-1)
-                                .getText()
-                                .replace("$", ""));
-            }
-            Assert.assertTrue(validateSearchLowerToHigher(price, priceLess));
 
+            Assert.assertTrue(validateSearchLowerToHigher(price, priceLess));
+            priceLess = price;
         }
     }
     public static boolean validateSearchLowerToHigher(Double price, Double priceLess){
